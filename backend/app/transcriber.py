@@ -40,7 +40,7 @@ class ASRService:
                                                   compute_type=self.compute_type)
             return self._models[size]
 
-    def transcribe(self, path: str, model: str = "base", language: Optional[str] = None,
+    def transcribe(self, path: str, model: str = "tiny", language: Optional[str] = None,
                    task: str = "transcribe") -> Tuple[List[Segment], str, float]:
         """Return (segments, detected_language, audio_duration_seconds)."""
         if model not in MODEL_SIZES:

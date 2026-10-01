@@ -28,7 +28,7 @@ def health():
 
 @app.post("/api/transcribe")
 def transcribe(file: UploadFile = File(...),
-               model: str = Form("base"),
+               model: str = Form("tiny"),
                language: str = Form(""),
                task: str = Form("transcribe")):
     try:
