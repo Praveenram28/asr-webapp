@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASR Studio – Speech to Text</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>🎙️ ASR Studio</h1>
+      <p class="sub">Upload or record speech and get an accurate transcript. Powered by Whisper.</p>
+    </header>
+
+    <section class="card">
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Choose audio file">
+        <p><strong>Drag &amp; drop</strong> an audio/video file here, or <span class="link">browse</span></p>
+        <p class="hint">wav, mp3, m4a, flac, ogg, opus, aac, mp4, mkv, webm · max 50 MB</p>
+        <input type="file" id="fileInput" accept="audio/*,video/*,.m4a,.opus,.mkv" hidden />
+      </div>
+
+      <div class="row center">
+        <span class="or">or</span>
+        <button id="recordBtn" class="btn secondary" type="button">🔴 Record from microphone</button>
+        <span id="timer" class="timer" hidden>00:00</span>
+      </div>
+
+      <div id="selected" class="selected" hidden>
+        <span id="fileName"></span>
+        <audio id="player" controls></audio>
+      </div>
+
+      <div class="grid">
+        <label>Model
+          <select id="model">
+            <option value="tiny">tiny (fastest)</option>
+            <option value="base" selected>base (balanced)</option>
+            <option value="small">small (better)</option>
+            <option value="medium">medium (slow)</option>
+            <option value="large-v3">large-v3 (best, slowest)</option>
+          </select>
+        </label>
+        <label>Language
+          <select id="language">
+            <option value="">Auto-detect</option>
+            <option value="en">English</option>
+            <option value="ta">Tamil</option>
+            <option value="hi">Hindi</option>
+            <option value="te">Telugu</option>
+            <option value="ml">Malayalam</option>
+            <option value="kn">Kannada</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="ar">Arabic</option>
+            <option value="zh">Chinese</option>
+            <option value="ja">Japanese</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="translate" /> Translate to English</label>
+      </div>
+
+      <button id="transcribeBtn" class="btn primary" type="button" disabled>Transcribe</button>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="result" class="card" hidden>
+      <div class="result-head">
+        <h2>Transcript</h2>
+        <span id="meta" class="meta"></span>
+      </div>
+      <textarea id="transcript" rows="8" readonly></textarea>
+      <div class="row">
+        <button id="copyBtn" class="btn secondary" type="button">Copy</button>
+        <button data-dl="txt" class="btn secondary" type="button">⬇ TXT</button>
+        <button data-dl="srt" class="btn secondary" type="button">⬇ SRT</button>
+        <button data-dl="vtt" class="btn secondary" type="button">⬇ VTT</button>
+        <button data-dl="json" class="btn secondary" type="button">⬇ JSON</button>
+      </div>
+      <h3>Timestamped segments</h3>
+      <ul id="segments" class="segments"></ul>
+    </section>
+
+    <footer>Built with FastAPI · faster-whisper · Vanilla JS</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
